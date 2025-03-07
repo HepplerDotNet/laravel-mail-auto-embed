@@ -1,13 +1,12 @@
 <?php
 
-namespace Eduardokum\LaravelMailAutoEmbed\Contracts\Embedder;
+namespace HepplerDotNet\LaravelMailAutoEmbed\Contracts\Embedder;
 
-use Eduardokum\LaravelMailAutoEmbed\Models\EmbeddableEntity;
+use HepplerDotNet\LaravelMailAutoEmbed\Models\EmbeddableEntity;
 
 interface EntityEmbedder
 {
     /**
-     * @param  EmbeddableEntity $entity
      * @return string
      */
     public function fromEntity(EmbeddableEntity $entity);

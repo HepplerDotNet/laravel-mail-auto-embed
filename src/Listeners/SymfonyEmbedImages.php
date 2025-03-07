@@ -1,50 +1,45 @@
 <?php
 
-namespace Eduardokum\LaravelMailAutoEmbed\Listeners;
+namespace HepplerDotNet\LaravelMailAutoEmbed\Listeners;
 
 use DOMDocument;
 use DOMElement;
-use Eduardokum\LaravelMailAutoEmbed\Embedder\AttachmentEmbedder;
-use Eduardokum\LaravelMailAutoEmbed\Embedder\Base64Embedder;
-use Eduardokum\LaravelMailAutoEmbed\Embedder\Embedder;
-use Eduardokum\LaravelMailAutoEmbed\Models\EmbeddableEntity;
 use Exception;
+use HepplerDotNet\LaravelMailAutoEmbed\Embedder\AttachmentEmbedder;
+use HepplerDotNet\LaravelMailAutoEmbed\Embedder\Base64Embedder;
+use HepplerDotNet\LaravelMailAutoEmbed\Embedder\Embedder;
+use HepplerDotNet\LaravelMailAutoEmbed\Models\EmbeddableEntity;
 use Illuminate\Mail\Events\MessageSending;
 use Masterminds\HTML5;
 use ReflectionClass;
-use Swift_Message;
 use Symfony\Component\Mime\Email;
 
 class SymfonyEmbedImages
 {
     /**
-     * @var  array
+     * @var array
      */
     private $config;
 
     /**
-     * @var  Email
+     * @var Email
      */
     private $message;
 
     /**
-     * @param  array  $config
+     * @param array $config
      */
     public function __construct($config)
     {
         $this->config = $config;
     }
 
-    /**
-     * @param  MessageSending  $event
-     */
     public function beforeSendPerformed(MessageSending $event)
     {
         $this->handle($event->message);
     }
 
     /**
-     * @param Email $message
      * @return void
      */
     public function handle(Email $message)
@@ -68,7 +63,7 @@ class SymfonyEmbedImages
         // Parse document
         $parser = new HTML5();
         $document = $parser->loadHTML($body);
-        if (! $document) {
+        if (!$document) {
             // Cannot read
             return;
         }
@@ -81,9 +76,8 @@ class SymfonyEmbedImages
     }
 
     /**
-     * @param DOMDocument $document
-     *
      * @return void
+     *
      * @throws Exception
      */
     private function attachImagesToDom(DOMDocument &$document)
@@ -109,8 +103,6 @@ class SymfonyEmbedImages
     }
 
     /**
-     * @param DOMElement $imageTag
-     *
      * @return bool
      */
     private function needsEmbed(DOMElement $imageTag)
@@ -121,7 +113,7 @@ class SymfonyEmbedImages
         }
 
         // Don't embed if auto-embed is disabled and 'data-auto-embed' is absent
-        if (! $this->config['enabled'] && ! $imageTag->hasAttribute('data-auto-embed')) {
+        if (!$this->config['enabled'] && !$imageTag->hasAttribute('data-auto-embed')) {
             return false;
         }
 
@@ -129,9 +121,8 @@ class SymfonyEmbedImages
     }
 
     /**
-     * @param DOMElement $imageTag
-     *
      * @return Embedder
+     *
      * @throws Exception
      */
     private function getEmbedder(DOMElement $imageTag)
@@ -152,8 +143,8 @@ class SymfonyEmbedImages
     }
 
     /**
-     * @param  Embedder  $embedder
-     * @param  string    $src
+     * @param string $src
+     *
      * @return string
      */
     private function embed(Embedder $embedder, $src)
@@ -168,17 +159,17 @@ class SymfonyEmbedImages
             $className = urldecode($embedParams[1]);
             $id = $embedParams[2];
 
-            if (! class_exists($className)) {
+            if (!class_exists($className)) {
                 return $src;
             }
 
             $class = new ReflectionClass($className);
-            if (! $class->implementsInterface(EmbeddableEntity::class)) {
+            if (!$class->implementsInterface(EmbeddableEntity::class)) {
                 return $src;
             }
 
             /** @var EmbeddableEntity $className */
-            if (! $instance = $className::findEmbeddable($id)) {
+            if (!$instance = $className::findEmbeddable($id)) {
                 return $src;
             }
 
@@ -209,4 +200,3 @@ class SymfonyEmbedImages
         return $src;
     }
 }
-

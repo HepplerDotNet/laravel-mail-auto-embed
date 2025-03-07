@@ -1,9 +1,9 @@
 <?php
 
-namespace Eduardokum\LaravelMailAutoEmbed\Embedder;
+namespace HepplerDotNet\LaravelMailAutoEmbed\Embedder;
 
-use Eduardokum\LaravelMailAutoEmbed\Contracts\Embedder\UrlEmbedder;
-use Eduardokum\LaravelMailAutoEmbed\Contracts\Embedder\EntityEmbedder;
+use HepplerDotNet\LaravelMailAutoEmbed\Contracts\Embedder\EntityEmbedder;
+use HepplerDotNet\LaravelMailAutoEmbed\Contracts\Embedder\UrlEmbedder;
 
 abstract class Embedder implements UrlEmbedder, EntityEmbedder
 {

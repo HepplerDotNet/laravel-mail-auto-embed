@@ -1,8 +1,7 @@
 <?php
 
-namespace Eduardokum\LaravelMailAutoEmbed\Contracts\Listeners;
+namespace HepplerDotNet\LaravelMailAutoEmbed\Contracts\Listeners;
 
 interface EmbedImages
 {
-
 }

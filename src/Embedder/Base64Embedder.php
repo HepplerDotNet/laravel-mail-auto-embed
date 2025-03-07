@@ -1,14 +1,14 @@
 <?php
 
-namespace Eduardokum\LaravelMailAutoEmbed\Embedder;
+namespace HepplerDotNet\LaravelMailAutoEmbed\Embedder;
 
+use HepplerDotNet\LaravelMailAutoEmbed\Models\EmbeddableEntity;
 use Illuminate\Support\Arr;
-use Eduardokum\LaravelMailAutoEmbed\Models\EmbeddableEntity;
 
 class Base64Embedder extends Embedder
 {
     /**
-     * @var  array
+     * @var array
      */
     private $config;
 
@@ -18,7 +18,8 @@ class Base64Embedder extends Embedder
     }
 
     /**
-     * @param  string  $url
+     * @param string $url
+     *
      * @return string
      */
     public function fromUrl($url)
@@ -50,7 +51,6 @@ class Base64Embedder extends Embedder
     }
 
     /**
-     * @param  EmbeddableEntity  $entity
      * @return string
      */
     public function fromEntity(EmbeddableEntity $entity)
@@ -59,7 +59,7 @@ class Base64Embedder extends Embedder
     }
 
     /**
-     * @param  string  $url
+     * @param string $url
      */
     public function fromRemoteUrl($url)
     {
@@ -85,8 +85,8 @@ class Base64Embedder extends Embedder
     }
 
     /**
-     * @param  string  $mimeType
-     * @param  mixed  $content
+     * @param string $mimeType
+     * @param mixed  $content
      */
     private function base64String($mimeType, $content)
     {

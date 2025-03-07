@@ -1,8 +1,8 @@
-[![Packagist](https://img.shields.io/packagist/v/eduardokum/laravel-mail-auto-embed.svg?style=flat-square)](https://github.com/eduardokum/laravel-mail-auto-embed)
-[![Packagist](https://img.shields.io/packagist/dt/eduardokum/laravel-mail-auto-embed.svg?style=flat-square)](https://github.com/eduardokum/laravel-mail-auto-embed)
-[![Packagist](https://img.shields.io/packagist/l/eduardokum/laravel-mail-auto-embed.svg?style=flat-square)](https://github.com/eduardokum/laravel-mail-auto-embed)
-[![GitHub Actions](https://img.shields.io/endpoint.svg?style=flat-square&url=https%3A%2F%2Factions-badge.atrox.dev%2Feduardokum%2Flaravel-mail-auto-embed%2Fbadge)](https://actions-badge.atrox.dev/eduardokum/laravel-mail-auto-embed/goto)
-[![GitHub forks](https://img.shields.io/github/forks/eduardokum/laravel-mail-auto-embed.svg?color=lightgrey&style=flat-square)](https://github.com/eduardokum/laravel-mail-auto-embed)
+[![Packagist](https://img.shields.io/packagist/v/HepplerDotNet/laravel-mail-auto-embed.svg?style=flat-square)](https://github.com/HepplerDotNet/laravel-mail-auto-embed)
+[![Packagist](https://img.shields.io/packagist/dt/HepplerDotNet/laravel-mail-auto-embed.svg?style=flat-square)](https://github.com/HepplerDotNet/laravel-mail-auto-embed)
+[![Packagist](https://img.shields.io/packagist/l/HepplerDotNet/laravel-mail-auto-embed.svg?style=flat-square)](https://github.com/HepplerDotNet/laravel-mail-auto-embed)
+[![GitHub Actions](https://img.shields.io/endpoint.svg?style=flat-square&url=https%3A%2F%2Factions-badge.atrox.dev%2FHepplerDotNet%2Flaravel-mail-auto-embed%2Fbadge)](https://actions-badge.atrox.dev/HepplerDotNet/laravel-mail-auto-embed/goto)
+[![GitHub forks](https://img.shields.io/github/forks/HepplerDotNet/laravel-mail-auto-embed.svg?color=lightgrey&style=flat-square)](https://github.com/HepplerDotNet/laravel-mail-auto-embed)
 
 # Laravel Mail Auto Embed
 
@@ -14,15 +14,15 @@ Should work on Laravel 5.3+. Automatically tested for Laravel 5.4+ on PHP 7.0+.
 ## Version Compatibility
 
 | Laravel | Package |
-|---------|---------|
-| \< 8.x  | 1.x     |
+| ------- | ------- |
 | \> 9.x  | 2.x     |
 
 ## Install
 
 You can install the package via composer:
+
 ```shell
-composer require eduardokum/laravel-mail-auto-embed
+composer require HepplerDotNet/laravel-mail-auto-embed
 ```
 
 This package uses Laravel 5.5 Package Auto-Discovery.
@@ -32,11 +32,10 @@ Provider:
 ```php
 $providers = [
     ...
-    \Eduardokum\LaravelMailAutoEmbed\ServiceProvider::class,
+    \HepplerDotNet\LaravelMailAutoEmbed\ServiceProvider::class,
     ...
  ];
 ```
-
 
 ## Usage
 
@@ -44,7 +43,9 @@ Its use is very simple, you write your markdown normally:
 
 ```markdown
 <!-- eg: resources/vendor/mail/markdown/order-shipped.blade.php -->
+
 @component('mail::message')
+
 # Order Shipped
 
 Your order has been shipped!
@@ -63,9 +64,11 @@ Thanks,<br>
 ```
 
 When sending, it will replace the link that would normally be generated:
+
 > `<img src="https://domain.com/products/product-1.png">`
 
 by an embedded inline attachment of the image:
+
 > `<img src="cid:3991f143cf1a86257f8671883736613c@Swift.generated">`.
 
 It works for raw html too:
@@ -73,11 +76,11 @@ It works for raw html too:
 ```html
 <!-- eg: resources/vendor/mail/html/header.blade.php -->
 <tr>
-    <td class="header">
-        <a href="{{ $url }}">
-            <img src="https://domain.com/logo.png" class="img-header">
-        </a>
-    </td>
+  <td class="header">
+    <a href="{{ $url }}">
+      <img src="https://domain.com/logo.png" class="img-header" />
+    </a>
+  </td>
 </tr>
 ```
 
@@ -86,14 +89,19 @@ are hosted elsewhere, if you want to use some kind of image tracker, etc.),
 simply add the attribute `data-skip-embed` in the image tag:
 
 ```html
-<img src="https://domain.com/logo.png" data-skip-embed class="img-header">
+<img src="https://domain.com/logo.png" data-skip-embed class="img-header" />
 ```
+
 ### Local resources
 
 For local resources that are not available publicly, use `file://` urls:
 
 ```html
-<img src="file://{{ resource_path('assets/img/logo.png') }}" alt="Logo" border="0"/>
+<img
+  src="file://{{ resource_path('assets/img/logo.png') }}"
+  alt="Logo"
+  border="0"
+/>
 ```
 
 ## Configuration
@@ -102,7 +110,7 @@ The defaults are set in `config/mail-auto-embed.php`. You can copy this file to
 your own config directory to modify the values using this command:
 
 ```shell
-php artisan vendor:publish --provider="Eduardokum\LaravelMailAutoEmbed\ServiceProvider"
+php artisan vendor:publish --provider="HepplerDotNet\LaravelMailAutoEmbed\ServiceProvider"
 ```
 
 ### Explicit embedding configuration
@@ -139,12 +147,12 @@ return [
 
 ```html
 <p>
-    <!-- Won't be embedded -->
-    <img src="https://domain.com/logo.png" class="img-header">
+  <!-- Won't be embedded -->
+  <img src="https://domain.com/logo.png" class="img-header" />
 </p>
 <p>
-    <!-- Explicit embedding -->
-    <img src="https://domain.com/item.png"  data-auto-embed>
+  <!-- Explicit embedding -->
+  <img src="https://domain.com/item.png" data-auto-embed />
 </p>
 ```
 
@@ -180,13 +188,12 @@ you can specify the embedding method as the `data-auto-embed` attribute value:
 
 ```html
 <p>
-    <img src="https://domain.com/logo.png" data-auto-embed="base64">
+  <img src="https://domain.com/logo.png" data-auto-embed="base64" />
 </p>
 <p>
-    <img src="https://domain.com/item.png" data-auto-embed="attachment">
+  <img src="https://domain.com/item.png" data-auto-embed="attachment" />
 </p>
 ```
-
 
 ## Embedding entities
 
@@ -199,7 +206,7 @@ In that case, make the entities you want to embed implement the
 ```php
 namespace App\Models;
 
-use Eduardokum\LaravelMailAutoEmbed\Models\EmbeddableEntity;
+use HepplerDotNet\LaravelMailAutoEmbed\Models\EmbeddableEntity;
 use Illuminate\Database\Eloquent\Model;
 
 class Picture extends Model implements EmbeddableEntity
@@ -243,11 +250,12 @@ Then, you can use the `embed:ClassName:id` syntax in your e-mail template:
 
 ```html
 <p>
-    <img src="embed:App\Models\Picture:123">
+  <img src="embed:App\Models\Picture:123" />
 </p>
 ```
 
 ## Contributing
+
 Please feel free to submit pull requests if you can improve or add any
 features.
 
@@ -256,4 +264,3 @@ Coding Standards Fixer.
 
 <a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=QPDFT3UXS6PTL&lc=GB&item_name=laravel%2dmail%2dauto%2dembed&item_number=laravel%2dmail%2dauto%2dembed&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted">
         <img alt="Donate with Paypal" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif"/></a>
-
