@@ -1,9 +1,9 @@
 <?php
 
-namespace Eduardokum\LaravelMailAutoEmbed\Embedder;
+namespace HepplerDotNet\LaravelMailAutoEmbed\Embedder;
 
-use Eduardokum\LaravelMailAutoEmbed\Models\EmbeddableEntity;
 use Exception;
+use HepplerDotNet\LaravelMailAutoEmbed\Models\EmbeddableEntity;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use Symfony\Component\Mime\Email;
